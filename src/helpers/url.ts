@@ -39,7 +39,7 @@ export function buildURL(url: string, params?: any): string {
       parts.push(`${encode(key)}=${encode(val)}`)
     })
   })
-  let serializedParams = params.join('&')
+  let serializedParams = parts.join('&')
   if (serializedParams) {
     const markIndex = url.indexOf('#')
     // 存在#
