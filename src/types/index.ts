@@ -1,4 +1,5 @@
 import { request } from "https";
+import { timeouts } from "retry";
 
 /**
  * 参数类型定义
@@ -36,7 +37,8 @@ export interface AxiosRequestConfig {
   data?: any
   params?: any,
   headers?: any,
-  responseType?:XMLHttpRequestResponseType
+  responseType?: XMLHttpRequestResponseType,
+  timeout?: number
 }
 
 /**
@@ -55,4 +57,11 @@ export interface AxiosResponse {
  */
 export interface AxiosPromise extends Promise<AxiosResponse> {
 
+}
+export interface AxiosError extends Error {
+  config: AxiosRequestConfig,
+  code?: string | null,
+  request?: any
+  response?: AxiosResponse,
+  isAxiosErrpr: boolean
 }
