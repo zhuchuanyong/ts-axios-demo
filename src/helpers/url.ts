@@ -54,7 +54,7 @@ export function buildURL(url: string, params?: any): string {
       } else if (isObject(val)) {
         val = JSON.stringify(val)
       }
-      //把参数的字段和值转成a=xx存入 parts数组 并进行特殊字符转换
+      // 把参数的字段和值转成a=xx存入 parts数组 并进行特殊字符转换
       parts.push(`${encode(key)}=${encode(val)}`)
     })
   })

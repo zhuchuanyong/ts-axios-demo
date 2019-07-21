@@ -1,3 +1,5 @@
+import { request } from "https";
+
 /**
  * 参数类型定义
  */
@@ -32,5 +34,25 @@ export interface AxiosRequestConfig {
   url: string
   method?: Method
   data?: any
-  params?: any
+  params?: any,
+  headers?: any,
+  responseType?:XMLHttpRequestResponseType
+}
+
+/**
+ * 响应数据类型
+ */
+export interface AxiosResponse {
+  data: any,
+  status: number,
+  statusText: string,
+  headers: any,
+  config: AxiosRequestConfig,
+  request: any
+}
+/**
+ * axios 返回类型
+ */
+export interface AxiosPromise extends Promise<AxiosResponse> {
+
 }
