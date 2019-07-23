@@ -1,5 +1,6 @@
-import { request } from "https";
-import { timeouts } from "retry";
+import { Axios } from './index'
+import { request } from 'https'
+import { timeouts } from 'retry'
 
 /**
  * 参数类型定义
@@ -32,12 +33,12 @@ export type Method =
  * @param params get、head 等类型请求的数据，拼接到 url
  */
 export interface AxiosRequestConfig {
-  url: string
+  url?: string
   method?: Method
   data?: any
-  params?: any,
-  headers?: any,
-  responseType?: XMLHttpRequestResponseType,
+  params?: any
+  headers?: any
+  responseType?: XMLHttpRequestResponseType
   timeout?: number
 }
 
@@ -45,23 +46,38 @@ export interface AxiosRequestConfig {
  * 响应数据类型
  */
 export interface AxiosResponse {
-  data: any,
-  status: number,
-  statusText: string,
-  headers: any,
-  config: AxiosRequestConfig,
+  data: any
+  status: number
+  statusText: string
+  headers: any
+  config: AxiosRequestConfig
   request: any
 }
 /**
  * axios 返回类型
  */
-export interface AxiosPromise extends Promise<AxiosResponse> {
-
-}
+export interface AxiosPromise extends Promise<AxiosResponse> {}
 export interface AxiosError extends Error {
-  config: AxiosRequestConfig,
-  code?: string | null,
+  config: AxiosRequestConfig
+  code?: string | null
   request?: any
-  response?: AxiosResponse,
-  isAxiosErrpr: boolean
+  response?: AxiosResponse
+  isAxiosError: boolean
+}
+/**
+ * axios 方法类型
+ */
+export interface Axios {
+  request(config: AxiosRequestConfig): AxiosPromise
+  get(url: string, config?: AxiosRequestConfig): AxiosPromise
+  delete(url: string, config?: AxiosRequestConfig): AxiosPromise
+  head(url: string, config?: AxiosRequestConfig): AxiosPromise
+  options(url: string, config?: AxiosRequestConfig): AxiosPromise
+  post(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise
+  put(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise
+  patch(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise
+}
+
+export interface AxiosInstance extends Axios {
+  (config: AxiosRequestConfig): AxiosPromise
 }

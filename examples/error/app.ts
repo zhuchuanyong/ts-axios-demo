@@ -40,6 +40,6 @@ axios({
     console.log(e.message)
     console.log(e.code)
     console.log(e.config)
-    console.log(e.isAxiosErrpr)
+    console.log(e.isAxiosError)
     console.log(e.request)
 })

@@ -1,10 +1,9 @@
-
 /**
  * 发送逻辑
  */
-import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types'
-import { parseHeaders } from './helpers/headers'
-import { createError } from './helpers/error'
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
+import { parseHeaders } from '../helpers/headers'
+import { createError } from '../helpers/error'
 /**
  *
  * @param config 请求参数
@@ -23,7 +22,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     }
 
     // 设置发送请求   请求方法 地址 是否异步
-    request.open(method.toUpperCase(), url, true)
+    request.open(method.toUpperCase(), url!, true)
     request.onreadystatechange = function handleload() {
       // readyState为4 说明可以拿到响应结果
       if (request.readyState !== 4) {
@@ -43,7 +42,6 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         headers: responseHeaders,
         config,
         request
-
       }
       handleResponse(response)
       // resolve()
@@ -58,8 +56,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       reject(createError(`Timeout of ${timeout} ms exceeded`, config, 'ECONNABOREND', request))
     }
     //  设置header
-    Object.keys(headers).forEach((name) => {
-      if (data === null && name.toUpperCase() === "content-type") {
+    Object.keys(headers).forEach(name => {
+      if (data === null && name.toUpperCase() === 'content-type') {
         // 数据为空 不设置header
         delete headers[name]
       } else {
@@ -70,16 +68,23 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     /**
      * 状态码异常处理
-     * @param response 
+     * @param response
      */
     function handleResponse(response: AxiosResponse): void {
       if (response.status >= 200 && response.status < 300) {
         resolve(response)
       } else {
-        reject(createError(`response filed  width status code ${response.status}`, config, null, request, response))
+        reject(
+          createError(
+            `response filed  width status code ${response.status}`,
+            config,
+            null,
+            request,
+            response
+          )
+        )
         // reject(new Error(`response filed  width status code ${response.status}`))
       }
     }
   })
-
 }
