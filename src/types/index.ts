@@ -77,7 +77,11 @@ export interface Axios {
   put(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise
   patch(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise
 }
-
+/**
+ * axios 实例方法类型  如axios.post()
+ */
 export interface AxiosInstance extends Axios {
+  // 没看懂这个定义 config   url&&config
   (config: AxiosRequestConfig): AxiosPromise
+  (url: string, config?: AxiosRequestConfig): AxiosPromise
 }

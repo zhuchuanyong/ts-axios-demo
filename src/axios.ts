@@ -1,4 +1,3 @@
-import { request } from 'https'
 import { AxiosInstance } from './types'
 import Axios from './core/Axios'
 import { extend } from './helpers/util'
